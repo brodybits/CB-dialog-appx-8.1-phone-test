@@ -218,7 +218,38 @@ function start() {
   sqlTest(handleResult);
 }
 
+function startSelfTest() {
+  function handleSelfTestSuccess() {
+    navigator.notification.alert(
+      'SELF test OK, confirm for bulk test test',
+      start, 'Cordova SQL Test');
+  }
+
+  window.sqlitePlugin.selfTest(handleSelfTestSuccess, function(e) {
+    navigator.notification.alert(
+      'SELF test FAILED with ' + (!!e && !!e.message) ?
+        'message: ' + e.message : 'no message',
+      null, 'Cordova SQL Test');
+  });
+}
+
+function startEchoTest() {
+  function handleEchoSuccess() {
+    navigator.notification.alert(
+      'ECHO test OK, confirm for self test',
+      startSelfTest, 'Cordova SQL Test');
+  }
+
+  window.sqlitePlugin.echoTest(handleEchoSuccess, function(e) {
+    navigator.notification.alert(
+      'ECHO test FAILED with ' + (!!e && !!e.message) ?
+        'message: ' + e.message : 'no message',
+      null, 'Cordova SQL Test');
+  });
+}
+
 document.addEventListener('deviceready', function() {
   //navigator.notification.alert('received deviceready event', start, 'Cordova SQL Test');
-  start();
+  //start();
+  navigator.notification.alert('READY for echo test', startEchoTest, 'Cordova SQL Test');
 });
