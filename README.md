@@ -1,4 +1,4 @@
-# Cordova SQL test app
+# Cordova sqlite legacy appx 8.1 phone test
 
 AUTHOR: @brodybits
 
